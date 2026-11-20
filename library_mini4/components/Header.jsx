@@ -1,7 +1,9 @@
 function Header() {
-    return<header>
+    return(
+        <header>
         <h1>📕도서 관리 서비스</h1>
-        </header>;
+        </header>
+    );
 }
 
 export default Header;
