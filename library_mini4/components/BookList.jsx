@@ -4,8 +4,8 @@ function BookList({books, onDelete}) {
     return (
         <ul className="book-list">
             {books.map((b) => 
-            <BookItem key={b.id} id={b.id} title={b.title} author={b.author}
-            content={b.content} coverImageUrl={b.coverImageUrl} onDelete={onDelete}/>
+            <BookItem key={b.id} id={b.id} title={b.title} author={b.author} content={b.content}
+            likes={p.likes} onLike={onLike} coverImageUrl={b.coverImageUrl} onDelete={onDelete}/>
             )}
         </ul>
     );

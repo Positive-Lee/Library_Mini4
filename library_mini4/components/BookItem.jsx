@@ -1,4 +1,4 @@
-function BookItem({id, title, author, content, coverImageUrl, onDelete}) {
+function BookItem({id, title, author, content, coverImageUrl, likes, onLike, onDelete}) {
     return (
         <li className="book-card">
             <h3>{title}</h3>
@@ -6,6 +6,7 @@ function BookItem({id, title, author, content, coverImageUrl, onDelete}) {
             <p>글쓴이: {author}</p>
             <p>요약: {content}</p>
 
+            <button onClick={() => onLike(id)}>👍 {likes}</button>
             <button onClick={() => onDelete(id)}>삭제</button>
         </li>
     );
