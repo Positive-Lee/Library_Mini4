@@ -1,17 +1,19 @@
 import { useState } from "react";
 
-
-function BookForm({ onAddBook }) {
+function BookForm({ onAddBook, onDeleteBook }) {
 
     const [title, setTitle] = useState("");
     const [author, setAuthor] = useState("");
     const [content, setContent] = useState("");
+   
+    const [lastBookId, setLastBookId] = useState(null);
 
     const handleClick = () => {
 
         if (!title.trim()) return;
 
         const newBook = {
+            id: Date.now(),                          
             title,
             author,
             content,
@@ -21,10 +23,19 @@ function BookForm({ onAddBook }) {
         };
 
         onAddBook(newBook);
+        setLastBookId(newBook.id);                   
 
         setTitle("");
         setAuthor("");
         setContent("");
+    }
+
+    
+    const handleDelete = () => {
+        if (lastBookId === null) return;             
+
+        onDeleteBook(lastBookId);                    
+        setLastBookId(null);                         
     }
 
     return (
@@ -47,6 +58,12 @@ function BookForm({ onAddBook }) {
 
             <button onClick={() => handleClick()}>
                 등록</button>
+
+            <button onClick={() => handleDelete()}>
+                삭제</button>
+
+            <button>
+                표지 생성</button>
         </section>
     );
 }
