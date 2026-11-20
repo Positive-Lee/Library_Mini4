@@ -4,11 +4,11 @@ function BookList({books, onDelete}) {
     return (
         <ul className="book-list">
             {books.map((b) => 
-            <PostItem key={b.id} id={b.id} title={b.title} author={b.author} contect={b.content}
-            coverImageUrl={b.coverImageUrl} likes={b.likes} onLike={onLike} onDelete={onDelete}/>
+            <BookItem key={b.id} id={b.id} title={b.title} author={b.author}
+            content={b.content} coverImageUrl={b.coverImageUrl} onDelete={onDelete}/>
             )}
         </ul>
     );
 }
 
-export default BookList;s
+export default BookList;
