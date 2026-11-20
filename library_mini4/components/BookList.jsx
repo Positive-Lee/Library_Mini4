@@ -1,11 +1,11 @@
 import BookItem from "./BookItem";
 
-function BookList({books, onDelete}) {
+function BookList({books, onLike, onDelete}) {
     return (
         <ul className="book-list">
             {books.map((b) => 
             <BookItem key={b.id} id={b.id} title={b.title} author={b.author} content={b.content}
-            likes={p.likes} onLike={onLike} coverImageUrl={b.coverImageUrl} onDelete={onDelete}/>
+            likes={b.likes} onLike={onLike} coverImageUrl={b.coverImageUrl} onDelete={onDelete}/>
             )}
         </ul>
     );
