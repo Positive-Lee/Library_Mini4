@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 function BookItem({id, title, author, content, coverImageUrl, likes}) {
     return (
         <li className="book-card">
@@ -15,7 +17,7 @@ function BookItem({id, title, author, content, coverImageUrl, likes}) {
                 justifyContent: 'center',
               }}
             >
-              {book.coverImageUrl ? (
+              {coverImageUrl ? (
                 <img
                   src={coverImageUrl}
                   alt={title}

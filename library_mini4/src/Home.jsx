@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getBooks } from '../components/books';
 import BookList from '../components/BookList';
@@ -20,7 +20,18 @@ const sampleBooks = [
 
 function Home() {
     const [books, setBooks] = useState([]);
-    setBooks(getBooks);
+    useEffect(() => {
+      const loadBooks = async () => {
+        try {
+            const data = await getBooks();
+            setBooks(data);
+        } catch (error) {
+            console.error(error);
+        }
+      };
+
+      loadBooks();
+    }, []);
     
   return (
     <main style={{ maxWidth: '900px', margin: '40px auto' }}>
