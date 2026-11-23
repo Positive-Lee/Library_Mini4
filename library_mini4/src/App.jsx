@@ -6,6 +6,7 @@ import BookItem from '../components/BookItem';
 import BookList from '../components/BookList';
 import { Route, Routes } from 'react-router-dom';
 import Home from './Home';
+import BookContent from '../components/BookContent';
 
 
 
