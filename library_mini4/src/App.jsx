@@ -24,7 +24,7 @@ function App(){
         <Route path='/' element={<Home />} />
         <Route path='/books/new' element={<BookForm />} />
         <Route path='/books/:id' element={<BookContent />} />
-        <Route path='/books/:id/edit' element={<BookEdit />} />
+        {/* <Route path='/books/:id/edit' element={<BookEdit />} /> */}
       </Routes>
     </>
   );
