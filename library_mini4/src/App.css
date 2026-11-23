@@ -186,3 +186,146 @@ header button:empty::after {
   }
 }
 
+/* 도서 목록을 2열로 배치 */
+.home-page ul,
+.home-page .book-grid,
+main ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  max-width: 500px;
+  padding: 0;
+  margin-top: 30px;
+  list-style: none;
+}
+
+/* 책 카드 크기 */
+.home-page li,
+.home-page .book-card,
+main li {
+  min-width: 0;
+  list-style: none;
+}
+
+/* 책 표지 크기 */
+.home-page img,
+.home-page .book-image,
+main li img {
+  display: block;
+  width: 100%;
+  max-width: 230px;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  background-color: #eeeeee;
+}
+
+/* 제목과 작가 */
+.home-page h3,
+main li h3 {
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+.home-page li p,
+main li p {
+  font-size: 12px;
+  color: #777;
+}
+
+/* 도서 등록 버튼 */
+.home-top button,
+.home-page a > button,
+main a > button {
+  background-color: #111111;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 12px 24px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* 마우스를 올렸을 때 */
+.home-top button:hover,
+.home-page a > button:hover,
+main a > button:hover {
+  background-color: #444444;
+}
+
+/* 도서 카드마다 회색 테두리 */
+main li {
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  padding: 12px;
+  background-color: #ffffff;
+  list-style: none;
+}
+
+/* 마우스를 올렸을 때 */
+main li:hover {
+  border-color: #aaaaaa;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+  transition: 0.2s ease;
+}
+
+/* 이미지와 제목 사이 간격 */
+main li img {
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+
+/* 제목과 작가 간격 */
+main li h3 {
+  margin-bottom: 5px;
+}
+
+/* 도서 카드 디자인 정리 */
+main li {
+  padding: 14px;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  background: #ffffff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* 마우스를 올렸을 때 */
+main li:hover {
+  border-color: #bbbbbb;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+}
+
+/* 책 표지 */
+main li img {
+  display: block;
+  width: 100%;
+  max-width: none;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 4px;
+  background: #f5f5f5;
+  margin-bottom: 14px;
+}
+
+/* 책 제목 */
+main li h3 {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 0 0 5px;
+}
+
+/* 작가 이름 */
+main li p {
+  font-size: 12px;
+  color: #888888;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* 카드 간격 */
+main ul {
+  column-gap: 24px;
+  row-gap: 24px;
+}
