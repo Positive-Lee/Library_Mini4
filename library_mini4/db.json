@@ -8,7 +8,8 @@
       "coverImageUrl": "https://template.canva.com/EAF8mBewQSA/1/0/1003w-yMk7izQlw0Q.jpg",
       "createdAt": "2026-11-20T09:00:00.000Z",
       "updatedAt": "2026-11-20T09:00:00.000Z",
-      "likes": 0
+      "recommend": 0,
+      "notRecommend": 0
     },
     {
       "id": "2",
@@ -18,7 +19,8 @@
       "coverImageUrl": "https://template.canva.com/EAF8mBewQSA/1/0/1003w-yMk7izQlw0Q.jpg",
       "createdAt": "2026-11-20T09:00:00.000Z",
       "updatedAt": "2026-11-20T09:00:00.000Z",
-      "likes": 0
+      "recommend": 0,
+      "notRecommend": 0
     },
     {
       "id": "3",
@@ -28,7 +30,8 @@
       "coverImageUrl": "https://template.canva.com/EAF8mBewQSA/1/0/1003w-yMk7izQlw0Q.jpg",
       "createdAt": "2026-11-20T09:00:00.000Z",
       "updatedAt": "2026-11-20T09:00:00.000Z",
-      "likes": 0
+      "recommend": 0,
+      "notRecommend": 0
     }
   ]
 }
