@@ -6,6 +6,7 @@ import BookItem from '../components/BookItem';
 import BookList from '../components/BookList';
 import { Route, Routes } from 'react-router-dom';
 import Home from './Home';
+import BookContent from '../components/BookContent';
 
 
 
@@ -21,7 +22,7 @@ function App(){
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/books/new' element={<BookForm />} />
-        {/* <Route path='/books/:id' element={<BookDetail />} /> */}
+        <Route path='/books/:id' element={<BookContent />} />
       </Routes>
     </>
   );

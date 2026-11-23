@@ -41,13 +41,11 @@ Aivle Library는 사용자가 도서 정보를 조회하고 등록·수정·삭�
 
 ## 📂 3. 프로젝트 기본 구조
 
+```text
 Library_Mini4/
 │
-├── DB_server/
-│   └── db.json                 # 도서 데이터
-│
 ├── library_mini4/
-│   ├── components/             # 공통 및 재사용 컴포넌트
+│   ├── components/             # 재사용 컴포넌트
 │   │   ├── Header.jsx
 │   │   ├── Navigation.jsx
 │   │   ├── BookList.jsx
@@ -56,21 +54,21 @@ Library_Mini4/
 │   │   └── BookContent.jsx
 │   │
 │   ├── src/
-│   │   ├── App.jsx             # 라우팅 및 전체 화면 구성
-│   │   ├── main.jsx            # React 앱 실행 진입점
-│   │   │
+│   │   ├── main.jsx            # React 시작점
+│   │   ├── App.jsx             # 라우팅 및 공통 화면
 │   │   ├── Home.jsx            # 도서 목록 페이지
-│   │   ├── Create.jsx          # 도서 등록 페이지
-│   │   ├── Detail.jsx          # 도서 상세 페이지
-│   │   └── Edit.jsx            # 도서 수정 페이지
-│   │
-│   │   ├── App.css             # 컴포넌트 스타일
+│   │   ├── App.css             # 화면 스타일
 │   │   └── index.css           # 전역 스타일
 │   │
-│   ├── package.json           # 패키지 및 실행 명령어
-│   └── package-lock.json       # 실제 설치할 패키지 버전 고정
+│   ├── index.html              # React 앱을 불러오는 HTML
+│   ├── package.json           # 패키지 및 실행 명령
+│   ├── package-lock.json      # 패키지 버전 정보
+│   ├── vite.config.js         # Vite 설정
+│   ├── eslint.config.js       # 코드 검사 설정
+│   └── .gitignore             # Git 제외 파일 설정
 │
 └── README.md
+```
 
 > **참고:** 프로젝트 구조는 기본 구성 예시이며, 개발 진행에 따라 변경될 수 있습니다.
 
@@ -112,7 +110,7 @@ http://localhost:3000
 
 http://localhost:3000/books
 
-> `package.json`의 `server` 스크립트가 `../DB_server/db.json`을 참조하도록 설정되어 있어야 합니다.
+> `package.json`의 `server` 스크립트가 `./db.json`을 참조하도록 설정되어 있어야 합니다.
 
 ### ⑤ React 개발 서버 실행
 
