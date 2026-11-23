@@ -39,17 +39,8 @@ function Home() {
         </Link>
       </div>
 
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-          gap: '24px',
-          marginTop: '30px',
-        }}
-      >
 
-        <BookList books={books} />
-      </div>
+      <BookList books={books} />
     </main>
   );
 }
