@@ -43,7 +43,7 @@ export async function updateBook(id, book) {
         const response = await fetch(`${API_URL}/${id}`, {
             method: "PATCH",
             headers: {
-                "Content_Type": "application/json"
+                "Content-Type": "application/json"
             },
             body: JSON.stringify(book)
         });
