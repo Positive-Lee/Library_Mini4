@@ -118,14 +118,7 @@ function BookForm() {
             const saved = await createBook(newBook);
             if (!saved || !saved.id) throw new Error("등록 실패");
 
-            alert("등록 완료!");
-
-            setTitle("");
-            setAuthor("");
-            setContent("");
-            setCandidates([]);
-            setSelectedIndex(null);
-            setError("");
+            navigate("/");
         } catch (err) {
             alert("등록에 실패했어요.");
             console.error(err);
