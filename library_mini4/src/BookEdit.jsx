@@ -89,12 +89,20 @@ function BookEdit() {
                 placeholder="줄거리"
                 rows={6}/>
 
-                <input
-                name="coverImageUrl"
-                value={book.coverImageUrl ?? ""}
-                onChange={handleChange}
-                placeholder="표지 이미지"/>
+                <div className="cover-preview">
+                    {book.coverImageUrl && (
+                        <img 
+                        src={book.coverImageUrl}
+                        alt="책 표지 미리보기"
+                        className=""/>
+                    )}
 
+                    <input
+                    name="coverImageUrl"
+                    value={book.coverImageUrl ?? ""}
+                    onChange={handleChange}
+                    placeholder="표지 이미지"/>
+                </div>
                 <button type="submit">수정 완료</button>
                 <button type="button" onClick={() => navigate(`/books/${id}`)}>취소</button>
             </form>
