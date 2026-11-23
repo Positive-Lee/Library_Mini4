@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getBook } from "./books";
 
-function BookContent({onLike, onDelete, onEdit, onBack}) {
+function BookContent({onLike, onDelete, onEdit}) {
   const {id} = useParams();
   const navigate = useNavigate();
 
@@ -56,7 +56,7 @@ function BookContent({onLike, onDelete, onEdit, onBack}) {
         </button>
 
         <div className="book-actions">
-          <button onClick={() => navigate(`/books/${id}/edit`)}>수정</button>
+          <button onClick={() => onEdit(id)}>수정</button>
           <button onClick={() => onDelete(id)}>삭제</button>
           <button onClick={() => navigate("/")}>목록으로</button>
         </div>
