@@ -3,20 +3,7 @@ import { Link } from 'react-router-dom';
 import { getBooks } from '../components/books';
 import BookList from '../components/BookList';
 
-const sampleBooks = [
-  {
-    id: 1,
-    title: '별빛 아래의 서점',
-    author: '홍길동',
-    coverImageUrl: '',
-  },
-  {
-    id: 2,
-    title: '리액트 입문',
-    author: '김개발',
-    coverImageUrl: '',
-  },
-];
+
 
 function Home() {
     const [books, setBooks] = useState([]);
