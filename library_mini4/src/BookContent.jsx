@@ -2,7 +2,7 @@ import './BookContent.css';
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getBook, deleteBook } from "../components/books";
-import './BookContent.css';
+
 
 function BookContent() {
   const {id} = useParams();

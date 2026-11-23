@@ -1,124 +1,148 @@
-
-/* =========================
-   도서 수정 페이지
-========================= */
-
-.book-edit {
-  width: 100%;
-  max-width: 900px;
+/* 도서 상세 페이지 전체 */
+.book-content {
+  max-width: 1000px;
   margin: 40px auto;
   padding: 32px;
   box-sizing: border-box;
 }
 
-/* 페이지 제목 */
-.book-edit h2 {
-  margin: 0 0 28px;
-  font-size: 28px;
-  font-weight: 700;
-  color: #111111;
-}
-
-/* 수정 폼 */
-.book-edit form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-
+/* 도서 정보 카드 */
+.book-detail {
   padding: 32px;
   border: 1px solid #e5e5e5;
   border-radius: 12px;
   background: #ffffff;
 }
 
-/* 제목 / 저자 입력창 */
-.book-edit input,
-.book-edit textarea {
+/* 책 표지 */
+.book-cover {
   display: block;
-  width: 100%;
-  padding: 14px 16px;
-  box-sizing: border-box;
+  width: 220px;
+  height: 300px;
+  object-fit: cover;
+  background: #eeeeee;
+  border-radius: 6px;
+  margin-bottom: 24px;
+}
+
+/* 책 제목 */
+.book-detail h3 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 12px;
+}
+
+/* 저자 */
+.book-detail > p {
+  font-size: 15px;
+  color: #777777;
+  margin-bottom: 30px;
+}
+
+/* 도서 소개 */
+.book-description {
+  padding: 24px;
+  background: #f7f7f7;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.book-description h4 {
+  font-size: 18px;
+  margin: 0 0 14px;
+}
+
+.book-description p {
+  font-size: 15px;
+  line-height: 1.8;
+  margin: 0;
+}
+
+/* =========================
+   추천 / 비추천 버튼
+========================= */
+
+.book-votes {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0 28px;
+}
+
+.book-votes button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 10px 18px;
+  min-width: 120px;
 
   border: 1px solid #dddddd;
   border-radius: 8px;
   background: #ffffff;
-  color: #111111;
+  color: #333333;
 
-  font-family: inherit;
   font-size: 14px;
-  outline: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-/* 입력창 포커스 */
-.book-edit input:focus,
-.book-edit textarea:focus {
-  border-color: #777777;
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+/* 추천 버튼 */
+.book-votes button:first-child {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+  color: #2563eb;
 }
 
-/* 줄거리 입력창 */
-.book-edit textarea {
-  min-height: 160px;
-  resize: vertical;
-  line-height: 1.7;
+/* 비추천 버튼 */
+.book-votes button:nth-child(2) {
+  background: #f8f9fa;
+  border-color: #e5e7eb;
+  color: #555555;
+}
+
+.book-votes button:hover {
+  filter: brightness(0.96);
+  transform: translateY(-1px);
 }
 
 /* =========================
-   책 표지 미리보기
+   수정 / 삭제 / 목록 버튼
 ========================= */
 
-.book-edit .cover-preview {
+.book-actions {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 16px;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-top: 20px;
+  border-top: 1px solid #eeeeee;
 }
 
-.book-edit .cover-preview img {
-  display: block;
-  width: 180px;
-  height: 240px;
-  object-fit: cover;
-
-  background: #f2f2f2;
-  border: 1px solid #eeeeee;
-  border-radius: 8px;
-}
-
-/* =========================
-   수정 완료 / 취소 버튼
-========================= */
-
-.book-edit form > button {
+.book-actions button {
   padding: 12px 24px;
   border: none;
   border-radius: 6px;
-
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
-
-  transition: background-color 0.2s ease;
-}
-
-/* 수정 완료 */
-.book-edit form > button[type="submit"] {
-  background: #111111;
-  color: #ffffff;
-}
-
-.book-edit form > button[type="submit"]:hover {
-  background: #444444;
-}
-
-/* 취소 */
-.book-edit form > button[type="button"] {
   background: #eeeeee;
   color: #111111;
 }
 
-.book-edit form > button[type="button"]:hover {
-  background: #dddddd;
+.book-actions button:first-child {
+  background: #111111;
+  color: white;
+}
+
+.book-actions button:nth-child(2) {
+  background: #dc3545;
+  color: white;
+}
+
+.book-actions button:hover {
+  opacity: 0.85;
 }
 
 /* =========================
@@ -126,22 +150,20 @@
 ========================= */
 
 @media (max-width: 600px) {
-  .book-edit {
+  .book-content {
     margin: 20px auto;
     padding: 16px;
   }
 
-  .book-edit h2 {
-    font-size: 24px;
-  }
-
-  .book-edit form {
+  .book-detail {
     padding: 20px;
-    gap: 16px;
   }
 
-  .book-edit .cover-preview img {
-    width: 140px;
-    height: 190px;
+  .book-votes {
+    flex-wrap: wrap;
+  }
+
+  .book-votes button {
+    min-width: 0;
   }
 }
