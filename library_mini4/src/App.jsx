@@ -21,13 +21,13 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header onSearch={handleSearch} />
 
       <Navigation />
 
       <Routes>
 
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home searchKeyword={searchKeyword} />} />
 
         <Route path="/books/new" element={<BookForm />} />
 
