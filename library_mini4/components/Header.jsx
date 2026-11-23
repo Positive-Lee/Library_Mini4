@@ -11,6 +11,8 @@ function Header({ onSearch }) {
     if (onSearch) {
       onSearch(search);
     }
+    
+    setSearch("");
   };
 
   const handleHome = () => {
