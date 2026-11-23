@@ -98,8 +98,8 @@ function BookForm() {
 
         if (!title.trim()) return;
 
-        if (candidates.length > 0 && selectedIndex === null) {
-            setError("표지 후보 중 하나를 선택하세요.");
+        if (!coverImageUrl) {
+            setError(candidates.length > 0 ? "표지 후보 중 하나를 선택하세요." : "표지를 먼저 생성하세요.");
             return;
         }
 
