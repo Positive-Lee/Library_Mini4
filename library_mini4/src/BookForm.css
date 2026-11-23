@@ -1,0 +1,140 @@
+
+/* =========================
+   도서 등록 페이지
+========================= */
+
+.book-form {
+  width: 100%;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 32px;
+  box-sizing: border-box;
+}
+
+/* 페이지 제목 */
+.book-form h2 {
+  margin: 0 0 28px;
+  font-size: 28px;
+  font-weight: 700;
+  color: #111111;
+}
+
+/* 등록 폼 */
+.book-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  padding: 32px;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+/* 제목 / 저자 / 내용 입력창 */
+.book-form input,
+.book-form textarea,
+.book-form select {
+  display: block;
+  width: 100%;
+  padding: 14px 16px;
+  box-sizing: border-box;
+
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #111111;
+
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+}
+
+/* 입력창 포커스 */
+.book-form input:focus,
+.book-form textarea:focus,
+.book-form select:focus {
+  border-color: #777777;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+/* 도서 내용 */
+.book-form textarea {
+  min-height: 160px;
+  resize: vertical;
+  line-height: 1.7;
+}
+
+/* AI 표지 생성 영역 */
+.book-form h3 {
+  margin: 12px 0 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #111111;
+}
+
+/* 생성된 책 표지 */
+.book-form img {
+  display: block;
+  width: 180px;
+  height: 240px;
+  object-fit: cover;
+  border: 1px solid #eeeeee;
+  border-radius: 8px;
+}
+
+/* 버튼 공통 */
+.book-form button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* AI 표지 생성 버튼 */
+.book-form button[type="button"] {
+  background: #eeeeee;
+  color: #111111;
+}
+
+.book-form button[type="button"]:hover {
+  background: #dddddd;
+}
+
+/* 등록 버튼 */
+.book-form button[type="submit"] {
+  background: #111111;
+  color: #ffffff;
+}
+
+.book-form button[type="submit"]:hover {
+  background: #444444;
+}
+
+/* =========================
+   모바일
+========================= */
+
+@media (max-width: 600px) {
+  .book-form {
+    margin: 20px auto;
+    padding: 16px;
+  }
+
+  .book-form h2 {
+    font-size: 24px;
+  }
+
+  .book-form form {
+    padding: 20px;
+    gap: 16px;
+  }
+
+  .book-form img {
+    width: 140px;
+    height: 190px;
+  }
+}

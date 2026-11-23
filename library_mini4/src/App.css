@@ -293,3 +293,52 @@ header button:empty::after {
     height: 200px;
   }
 }
+
+/* =========================
+   네비게이션 메뉴
+========================= */
+
+.navigation {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+
+  padding: 16px 40px;
+  border-bottom: 1px solid #eeeeee;
+  background: #ffffff;
+}
+
+/* 네비게이션 링크 */
+.navigation a {
+  color: #444444;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+
+  padding: 8px 4px;
+  transition: color 0.2s ease;
+}
+
+/* 마우스 올렸을 때 */
+.navigation a:hover {
+  color: #111111;
+}
+
+/* 현재 선택된 메뉴 */
+.navigation a.active {
+  color: #111111;
+  font-weight: 700;
+  border-bottom: 2px solid #111111;
+}
+
+/* 모바일 */
+@media (max-width: 600px) {
+  .navigation {
+    gap: 20px;
+    padding: 12px 16px;
+  }
+
+  .navigation a {
+    font-size: 14px;
+  }
+}
