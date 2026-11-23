@@ -68,7 +68,7 @@ export async function deleteBook(id) {
 // 도서 검색
 export async function searchBooks(keyword) {
   const response = await fetch(
-    `${API_URL}?title_like=${encodeURIComponent(keyword)}`
+    `${API_URL}?title:contains=${encodeURIComponent(keyword)}`
   );
 
   if (!response.ok) {
