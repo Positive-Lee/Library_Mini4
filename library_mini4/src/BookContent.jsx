@@ -1,8 +1,10 @@
+import './BookContent.css';
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getBook, deleteBook } from "../components/books";
+import './BookContent.css';
 
-function BookContent({onLike}) {
+function BookContent() {
   const {id} = useParams();
   const navigate = useNavigate();
 
@@ -19,6 +21,34 @@ function BookContent({onLike}) {
       } catch(error) {
         console.error(error);
         alert("삭제에 실패했습니다.");
+      }
+    }
+
+    async function handleVote(type) {
+      if (!book) return;
+
+      try {
+        const res = await fetch(`http://localhost:3000/books/${id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            [type]: (book[type] ?? 0) + 1,
+          }),
+        });
+
+        if (!res.ok) {
+          const message = await res.text();
+          console.error("PATCH 실패:", res.status, message);
+          throw new Error("추천·비추천 저장 실패");
+        }
+
+        const updatedBook = await res.json();
+        setBook(updatedBook);
+      } catch (error) {
+        console.error(error);
+        alert("추천·비추천 저장에 실패했습니다.");
       }
     }
     
@@ -63,12 +93,18 @@ function BookContent({onLike}) {
           <p>{book.content}</p>
         </div>
 
-        <button onClick={() => onLike(id)}>
-          👍 {book.likes}
-        </button>
+        <div className="book-votes">
+          <button onClick={() => handleVote("recommend")}>
+            👍 추천 {book.recommend ?? 0}
+          </button>
+
+          <button onClick={() => handleVote("notRecommend")}>
+            👎 비추천 {book.notRecommend ?? 0}
+          </button>
+        </div>
 
         <div className="book-actions">
-          <button onClick={() => navigate(`books/${id}/edit`)}>수정</button>
+          <button onClick={() => navigate(`/books/${id}/edit`)}>수정</button>
           <button onClick={handleDelete}>삭제</button>
           <button onClick={() => navigate("/")}>목록으로</button>
         </div>
