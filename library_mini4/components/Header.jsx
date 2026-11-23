@@ -8,10 +8,12 @@ function Header({ onSearch }) {
   const handleSearch = (e) => {
     e.preventDefault();
 
+    if (!search.trim()) return;
+
     if (onSearch) {
       onSearch(search);
     }
-    
+
     setSearch("");
   };
 
