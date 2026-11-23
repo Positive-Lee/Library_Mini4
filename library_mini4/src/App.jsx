@@ -21,34 +21,17 @@ function App() {
 
   return (
     <>
-      <Header onSearch={handleSearch} />
+      <Header />
+
+      <Navigation />
 
       <Routes>
 
-        <Route
-          path="/"
-          element={
-            <>
-              <Navigation />
-              <Home searchKeyword={searchKeyword} />
-            </>
-          }
-        />
+        <Route path="/" element={<Home />} />
 
-        <Route
-          path="/books/new"
-          element={<BookForm />}
-        />
+        <Route path="/books/new" element={<BookForm />} />
 
-        <Route
-          path="/books/:id"
-          element={<BookContent />}
-        />
-
-        <Route
-          path="/books/:id/edit"
-          element={<BookEdit />}
-        />
+        <Route path="/books/:id" element={<BookContent />} />
 
       </Routes>
     </>
