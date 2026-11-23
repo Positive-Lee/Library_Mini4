@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 function Header({ onSearch }) {
   const [search, setSearch] = useState("");
-
+  const navigate = useNavigate();
+  
   const handleSearch = (e) => {
     e.preventDefault();
 
