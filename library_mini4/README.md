@@ -44,9 +44,6 @@ Aivle Library는 사용자가 도서 정보를 조회하고 등록·수정·삭�
 ```text
 Library_Mini4/
 │
-├── DB_server/
-│   └── db.json                 # 도서 데이터 저장
-│
 ├── library_mini4/
 │   ├── components/             # 재사용 컴포넌트
 │   │   ├── Header.jsx
@@ -113,7 +110,7 @@ http://localhost:3000
 
 http://localhost:3000/books
 
-> `package.json`의 `server` 스크립트가 `../DB_server/db.json`을 참조하도록 설정되어 있어야 합니다.
+> `package.json`의 `server` 스크립트가 `./db.json`을 참조하도록 설정되어 있어야 합니다.
 
 ### ⑤ React 개발 서버 실행
 
