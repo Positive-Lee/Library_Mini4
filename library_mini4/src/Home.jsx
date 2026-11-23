@@ -1,4 +1,7 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { getBooks } from '../components/books';
+import BookList from '../components/BookList';
 
 const sampleBooks = [
   {
@@ -16,6 +19,9 @@ const sampleBooks = [
 ];
 
 function Home() {
+    const [books, setBooks] = useState([]);
+    setBooks(getBooks);
+    
   return (
     <main style={{ maxWidth: '900px', margin: '40px auto' }}>
       <div
@@ -43,36 +49,8 @@ function Home() {
           marginTop: '30px',
         }}
       >
-        {sampleBooks.map((book) => (
-          <Link
-            key={book.id}
-            to={`/books/${book.id}`}
-            style={{ color: 'inherit', textDecoration: 'none' }}
-          >
-            <div
-              style={{
-                aspectRatio: '3 / 4',
-                background: '#eeeeee',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              {book.coverImageUrl ? (
-                <img
-                  src={book.coverImageUrl}
-                  alt={book.title}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                />
-              ) : (
-                <span>표지 이미지 없음</span>
-              )}
-            </div>
 
-            <h3>{book.title}</h3>
-            <p>{book.author}</p>
-          </Link>
-        ))}
+        <BookList books={books} />
       </div>
     </main>
   );

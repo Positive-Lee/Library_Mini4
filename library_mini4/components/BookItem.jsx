@@ -1,13 +1,34 @@
-function BookItem({id, title, author, content, coverImageUrl, likes, onLike, onDelete}) {
+function BookItem({id, title, author, content, coverImageUrl, likes}) {
     return (
         <li className="book-card">
-            <h3>{title}</h3>
-            <img src={coverImageUrl} />
-            <p>글쓴이: {author}</p>
-            <p>요약: {content}</p>
+          <Link
+            key={id}
+            to={`/books/${id}`}
+            style={{ color: 'inherit', textDecoration: 'none' }}
+          >
+            <div
+              style={{
+                aspectRatio: '3 / 4',
+                background: '#eeeeee',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              {book.coverImageUrl ? (
+                <img
+                  src={coverImageUrl}
+                  alt={title}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              ) : (
+                <span>표지 이미지 없음</span>
+              )}
+            </div>
 
-            <button onClick={() => onLike(id)}>👍 {likes}</button>
-            <button onClick={() => onDelete(id)}>삭제</button>
+            <h3>{title}</h3>
+            <p>{author}</p>
+          </Link>
         </li>
     );
 }
