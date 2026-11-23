@@ -4,6 +4,7 @@ import Navigation from '../components/Navigation';
 import BookForm from '../components/BookForm';
 import BookItem from '../components/BookItem';
 import BookList from '../components/BookList';
+import { Route, Routes } from 'react-router-dom';
 
 
 
@@ -13,9 +14,15 @@ function App(){
   
 
   return (
+    <>
+      <Header />
 
-
-    <Header />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/books/new' element={<BookForm />} />
+        <Route path='/books/:id' element={<BookDetail />} />
+      </Routes>
+    </>
   );
 }
 
