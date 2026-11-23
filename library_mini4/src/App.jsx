@@ -37,6 +37,11 @@ function App() {
           element={<BookContent />}
         />
 
+        <Route
+          path="/books/:id/edit"
+          element={<BookEdit />}
+        />
+
       </Routes>
     </>
   );
