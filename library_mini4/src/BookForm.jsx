@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createBook } from "./books";
+import { createBook } from "../components/books";
 const IMAGE_API_URL = "https://api.openai.com/v1/images/generations";
 
 const makePrompt = (title, author, content) =>
