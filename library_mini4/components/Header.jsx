@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Header({ onSearch }) {
   const [search, setSearch] = useState("");
@@ -10,6 +11,12 @@ function Header({ onSearch }) {
       onSearch(search);
     }
   };
+
+  const handleHome = () => {
+    setSearch("");
+    onSearch?.("");
+    navigate("/");
+  }
 
   return (
     <header className="library-header">
@@ -29,7 +36,7 @@ function Header({ onSearch }) {
         <button className="search-button" type="submit">
           검색
         </button>
-        <button onClick={() => navigate("/")}>목록</button>
+        <button type="button" onClick={handleHome}>목록</button>
       </form>
     </header>
   );
