@@ -1,23 +1,34 @@
 
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getBooks } from "../components/books";
+import { getBooks, searchBooks } from "../components/books";
 
-function Home() {
+function Home({ searchKeyword }) {
     const [books, setBooks] = useState([]);
 
     useEffect(() => {
-        async function fetchBooks() {
-            try {
-                const data = await getBooks();
-                setBooks(data);
-            } catch (error) {
-                console.error(error);
-            }
-        }
+      let cancelled = false;
 
-        fetchBooks();
-    }, []);
+      async function fetchBooks() {
+        try {
+          const data = searchKeyword
+            ? await searchBooks(searchKeyword)
+            : await getBooks();
+
+          if (!cancelled) {
+            setBooks(data);
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
+      fetchBooks();
+
+      return () => {
+        cancelled = true;
+      };
+    }, [searchKeyword]);
 
     return (
         <main className="home-page">

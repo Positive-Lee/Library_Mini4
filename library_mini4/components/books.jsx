@@ -64,3 +64,16 @@ export async function deleteBook(id) {
         console.log("도서 삭제 실패: ", error);
     }
 }
+
+// 도서 검색
+export async function searchBooks(keyword) {
+  const response = await fetch(
+    `${API_URL}?title_like=${encodeURIComponent(keyword)}`
+  );
+
+  if (!response.ok) {
+    throw new Error("도서 검색 실패");
+  }
+
+  return await response.json();
+}
