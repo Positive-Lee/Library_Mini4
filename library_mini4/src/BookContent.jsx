@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getBook } from "./books";
+import { getBook, deleteBook } from "../components/books";
 
-function BookContent({onLike, onDelete, onEdit}) {
+function BookContent({onLike, onEdit}) {
   const {id} = useParams();
   const navigate = useNavigate();
 
@@ -10,6 +10,18 @@ function BookContent({onLike, onDelete, onEdit}) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  async function handleDelete() {
+      if (!window.confirm("정말 삭제하시겠습니다?")) return;
+
+      try {
+        await deleteBook(id);
+        navigate("/");
+      } catch(error) {
+        console.error(error);
+        alert("삭제에 실패했습니다.");
+      }
+    }
+    
   useEffect(() => {
     async function fetchBook() {
       try {
@@ -57,7 +69,7 @@ function BookContent({onLike, onDelete, onEdit}) {
 
         <div className="book-actions">
           <button onClick={() => onEdit(id)}>수정</button>
-          <button onClick={() => onDelete(id)}>삭제</button>
+          <button onClick={handleDelete}>삭제</button>
           <button onClick={() => navigate("/")}>목록으로</button>
         </div>
       </div>
