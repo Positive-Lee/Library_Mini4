@@ -30,7 +30,8 @@ async function requestCovers(apiKey, prompt, quality) {
             n: COVER_COUNT,
             size: "1024x1536",
             quality,
-            output_format: "png",
+            output_format: "webp",
+            output_compression:70,
         }),
     });
 
@@ -42,7 +43,7 @@ async function requestCovers(apiKey, prompt, quality) {
     const images = data.data || [];
     if (images.length === 0) throw new Error("응답에서 이미지를 찾지 못했어요.");
 
-    return images.map((img) => `data:image/png;base64,${img.b64_json}`);
+    return images.map((img) => `data:image/webp;base64,${img.b64_json}`);
 }
 
 function BookForm() {
