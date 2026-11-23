@@ -1,41 +1,47 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function BookForm({ onAddBook, onDeleteBook }) {
+const BOOKS_URL = "http://localhost:3000/books";
+
+function BookForm() {
+
+    const navigate = useNavigate();
 
     const [title, setTitle] = useState("");
     const [author, setAuthor] = useState("");
     const [content, setContent] = useState("");
-   
-    const [lastBookId, setLastBookId] = useState(null);
 
-    const handleClick = () => {
+    const handleClick = async () => {
 
         if (!title.trim()) return;
 
         const newBook = {
-            id: Date.now(),                          
             title,
             author,
             content,
             coverImageUrl: "",
+            likes: 0,
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString(),
         };
 
-        onAddBook(newBook);
-        setLastBookId(newBook.id);                   
-
-        setTitle("");
-        setAuthor("");
-        setContent("");
+        try {
+            const res = await fetch(BOOKS_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newBook),
+            });
+            setTitle("");
+            setAuthor("");
+            setContent("");
+        } catch (err) {
+            console.error(err);
+        }
     }
 
-    
-    const handleDelete = () => {
-        if (lastBookId === null) return;             
 
-        onDeleteBook(lastBookId);                    
-        setLastBookId(null);                         
+    const handleCancel = () => {
+        navigate("/");
     }
 
     return (
@@ -59,8 +65,8 @@ function BookForm({ onAddBook, onDeleteBook }) {
             <button onClick={() => handleClick()}>
                 등록</button>
 
-            <button onClick={() => handleDelete()}>
-                삭제</button>
+            <button onClick={() => handleCancel()}>
+                취소</button>
 
             <button>
                 표지 생성</button>
