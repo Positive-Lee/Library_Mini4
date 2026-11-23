@@ -106,7 +106,6 @@ function BookContent() {
         <div className="book-actions">
           <button onClick={() => navigate(`/books/${id}/edit`)}>수정</button>
           <button onClick={handleDelete}>삭제</button>
-          <button onClick={() => navigate("/")}>목록으로</button>
         </div>
       </div>
         </section>

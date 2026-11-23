@@ -29,6 +29,7 @@ function Header({ onSearch }) {
         <button className="search-button" type="submit">
           검색
         </button>
+        <button onClick={() => navigate("/")}>목록</button>
       </form>
     </header>
   );
