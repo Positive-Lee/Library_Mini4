@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { createBook } from "./books";
 
 const BOOKS_URL = "http://localhost:3000/books";
 
@@ -26,11 +27,8 @@ function BookForm() {
         };
 
         try {
-            const res = await fetch(BOOKS_URL, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(newBook),
-            });
+            const saved = await createBook(newBook);
+
             setTitle("");
             setAuthor("");
             setContent("");
