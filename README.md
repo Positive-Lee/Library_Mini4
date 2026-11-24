@@ -120,7 +120,15 @@ Library_Mini4/
     │   └── BookEdit.css
     ├── public/
     │   ├── favicon.svg
-    │   └── icons.svg
+    │   ├── icons.svg
+    │   └── screenshots/
+    │       ├── Home.png
+    │       ├── List.png
+    │       ├── Select.png
+    │       ├── Create.png
+    │       ├── Detail.png
+    │       ├── Review.png
+    │       └── Edit.png
     ├── db.json
     ├── package.json
     ├── package-lock.json
