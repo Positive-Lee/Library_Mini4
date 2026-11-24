@@ -6,8 +6,13 @@ import { getBooks, searchBooks } from "../components/books";
 function Home({ searchKeyword }) {
   const [books, setBooks] = useState([]);
   const [sortBy, setSortBy] = useState("latest");
+  const [reviewCounts, setReviewCounts] = useState({});
+  const [reviewsLoading, setReviewsLoading] = useState(true);
 
+  // =========================
   // 도서 데이터 불러오기
+  // =========================
+
   useEffect(() => {
     let cancelled = false;
 
@@ -21,7 +26,7 @@ function Home({ searchKeyword }) {
           setBooks(Array.isArray(data) ? data : []);
         }
       } catch (error) {
-        console.error(error);
+        console.error("도서 조회 오류:", error);
         if (!cancelled) setBooks([]);
       }
     }
@@ -32,6 +37,58 @@ function Home({ searchKeyword }) {
       cancelled = true;
     };
   }, [searchKeyword]);
+
+  // =========================
+  // 도서별 리뷰 개수 불러오기
+  // =========================
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function fetchReviews() {
+      try {
+        setReviewsLoading(true);
+
+        const response = await fetch(
+          "http://localhost:3000/reviews"
+        );
+
+        if (!response.ok) {
+          throw new Error("리뷰 데이터 불러오기 실패");
+        }
+
+        const data = await response.json();
+
+        if (!Array.isArray(data)) {
+          throw new Error("리뷰 데이터 형식이 올바르지 않습니다.");
+        }
+
+        const counts = {};
+
+        data.forEach((review) => {
+          const bookId = String(review.bookId);
+
+          counts[bookId] = (counts[bookId] || 0) + 1;
+        });
+
+        if (!cancelled) {
+          setReviewCounts(counts);
+        }
+      } catch (error) {
+        console.error("리뷰 조회 오류:", error);
+      } finally {
+        if (!cancelled) {
+          setReviewsLoading(false);
+        }
+      }
+    }
+
+    fetchReviews();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   // =========================
   // 베스트 도서 TOP 3
@@ -68,6 +125,13 @@ function Home({ searchKeyword }) {
         return (
           (Number(b.recommend) || 0) -
           (Number(a.recommend) || 0)
+        );
+
+      // 리뷰 많은 순
+      case "reviews":
+        return (
+          (reviewCounts[String(b.id)] || 0) -
+          (reviewCounts[String(a.id)] || 0)
         );
 
       // 최신순
@@ -142,10 +206,13 @@ function Home({ searchKeyword }) {
           {book.author}
         </p>
 
-        {/* 추천 / 비추천 */}
+        {/* 추천 / 비추천 / 리뷰 수 */}
         <div className="book-reactions">
           <span>👍 {book.recommend ?? 0}</span>
           <span>👎 {book.notRecommend ?? 0}</span>
+          <span>
+            💬 {reviewCounts[String(book.id)] ?? 0}
+          </span>
         </div>
 
       </article>
@@ -246,6 +313,10 @@ function Home({ searchKeyword }) {
                 추천순
               </option>
 
+              <option value="reviews">
+                리뷰 많은 순
+              </option>
+
               <option value="title">
                 가나다순
               </option>
@@ -255,7 +326,11 @@ function Home({ searchKeyword }) {
         </div>
 
         {/* 정렬된 도서 목록 */}
-        {sortedBooks.length > 0 ? (
+        {sortBy === "reviews" && reviewsLoading ? (
+          <p className="empty-books">
+            리뷰 정보를 불러오는 중입니다.
+          </p>
+        ) : sortedBooks.length > 0 ? (
           <div className="book-grid">
             {sortedBooks.map((book, index) =>
               renderBookCard(book, index)
@@ -276,3 +351,4 @@ function Home({ searchKeyword }) {
 }
 
 export default Home;
+
