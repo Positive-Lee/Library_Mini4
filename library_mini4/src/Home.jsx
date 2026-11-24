@@ -96,13 +96,7 @@ function Home({ searchKeyword }) {
                 <div>
                     <h1>도서 목록</h1>
                     <p>등록된 도서를 확인하고 상세 정보를 조회할 수 있습니다.</p>
-                </div>
-
-                <Link to="/books/new">
-                    <button type="button" className="add-book-btn">
-                        도서 등록
-                    </button>
-                </Link>
+                </div>                
             </div>
 
             <div className="book-grid">
