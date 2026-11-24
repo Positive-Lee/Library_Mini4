@@ -33,8 +33,13 @@ function Home({ searchKeyword }) {
 
     fetchBooks();
 
+    // 3초마다 도서 데이터 갱신
+    const interval = setInterval(fetchBooks, 3000);
+
+
     return () => {
       cancelled = true;
+      clearInterval(interval);
     };
   }, [searchKeyword]);
 
@@ -44,10 +49,10 @@ function Home({ searchKeyword }) {
 
   useEffect(() => {
     let cancelled = false;
+    setReviewsLoading(true);
 
     async function fetchReviews() {
       try {
-        setReviewsLoading(true);
 
         const response = await fetch(
           "http://localhost:3000/reviews"
@@ -85,8 +90,12 @@ function Home({ searchKeyword }) {
 
     fetchReviews();
 
+    // 3초마다 리뷰 데이터 갱신
+    const interval = setInterval(fetchReviews, 3000);
+
     return () => {
       cancelled = true;
+      clearInterval(interval);
     };
   }, []);
 
