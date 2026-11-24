@@ -11,7 +11,7 @@ const COVER_SIZES = [
     { value: "768x1152", label: "작게 (768x1152)" },
 ];
 
-
+// OpenAI 이미지 생성 프롬프트
 const makePrompt = (title, author, content) =>
     `세로 2:3 비율의 책 표지 일러스트를 만들어 주세요.
 책 제목: "${title}"
@@ -22,6 +22,7 @@ const makePrompt = (title, author, content) =>
 한 장의 이미지에는 표지 하나만 그려 주세요.
 이미지 안에 글자, 문자, 워터마크는 넣지 마세요.`;
 
+// GPT Image 호출
 async function requestCovers(apiKey, prompt, quality, size) {
     const res = await fetch(IMAGE_API_URL, {
         method: "POST",
@@ -55,14 +56,17 @@ function BookForm() {
 
     const navigate = useNavigate();
 
+    // 도서 입력값 (제목, 저자, 줄거리)
     const [title, setTitle] = useState("");
     const [author, setAuthor] = useState("");
     const [content, setContent] = useState("");
-
+    
+    // 표지 생성 옵션
     const [apiKey, setApiKey] = useState("");
     const [quality, setQuality] = useState("low");
     const [size, setSize] = useState("1024x1536");
 
+    // 생성된 후보 표지 목록
     const [candidates, setCandidates] = useState([]);
     const [selectedIndex, setSelectedIndex] = useState(null);
 
@@ -129,7 +133,7 @@ function BookForm() {
         e.target.value = "";
     };
 
-
+    // 표지 생성 버튼
     const handleGenerate = async () => {
         if (!title.trim() || !content.trim()) {
             setError("제목과 요약을 먼저 입력하세요.");
@@ -159,12 +163,14 @@ function BookForm() {
         }
     };
 
+    // 표지 선택
     const handleSelect = (i) => {
     setSelectedIndex(i);
     setUploadedImage("");
     setError("");
 };
 
+    // 등록 버튼
     const handleClick = async () => {
 
         if (!title.trim()) return;
