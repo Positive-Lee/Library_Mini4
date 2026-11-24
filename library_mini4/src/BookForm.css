@@ -6,205 +6,308 @@
 .book-form {
   width: 100%;
   max-width: 900px;
-  margin: 40px auto;
-  padding: 32px;
+  margin: 48px auto;
+  padding: 32px 40px 60px;
   box-sizing: border-box;
+  color: #222;
 }
 
-/* 페이지 제목 */
+/* 제목 */
 .book-form h2 {
-  margin: 0 0 28px;
-  font-size: 28px;
+  margin: 0 0 32px;
+  font-size: 26px;
   font-weight: 700;
-  color: #111111;
+  text-align: left;
 }
 
-/* 등록 폼 */
-.book-form form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-
-  padding: 32px;
-  border: 1px solid #e5e5e5;
-  border-radius: 12px;
-  background: #ffffff;
+/* 입력 영역 간격 */
+.book-form > div {
+  margin-bottom: 18px;
 }
 
-/* 제목 / 저자 / 내용 입력창 */
-.book-form input,
+/* 공통 입력창 */
+.book-form input:not([type="file"]),
 .book-form textarea,
 .book-form select {
   display: block;
   width: 100%;
-  padding: 14px 16px;
+  padding: 15px 18px;
   box-sizing: border-box;
 
-  border: 1px solid #dddddd;
-  border-radius: 8px;
-  background: #ffffff;
-  color: #111111;
+  border: 1px solid #e2e4e8;
+  border-radius: 10px;
+  background: #fff;
+  color: #222;
 
   font-family: inherit;
   font-size: 14px;
+  line-height: 1.5;
+
   outline: none;
+  transition: all 0.2s ease;
 }
 
 /* 입력창 포커스 */
 .book-form input:focus,
 .book-form textarea:focus,
 .book-form select:focus {
-  border-color: #777777;
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+  border-color: #555;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.04);
 }
 
-/* 도서 내용 */
+.book-form input::placeholder,
+.book-form textarea::placeholder {
+  color: #a0a4ab;
+}
+
+/* 요약 입력창 */
 .book-form textarea {
-  min-height: 160px;
+  min-height: 170px;
   resize: vertical;
-  line-height: 1.7;
+  line-height: 1.8;
 }
 
-/* AI 표지 생성 영역 */
+/* 섹션 제목 */
 .book-form h3 {
-  margin: 12px 0 0;
-  font-size: 20px;
+  margin: 0 0 20px;
+  font-size: 19px;
   font-weight: 700;
-  color: #111111;
-}
-
-/* 생성된 책 표지 */
-.book-form img {
-  display: block;
-  width: 180px;
-  height: 240px;
-  object-fit: cover;
-  border: 1px solid #eeeeee;
-  border-radius: 8px;
-}
-
-/* 버튼 공통 */
-.book-form button {
-  padding: 12px 24px;
-  border: none;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-/* AI 표지 생성 버튼 */
-.book-form button[type="button"] {
-  background: #eeeeee;
-  color: #111111;
-}
-
-.book-form button[type="button"]:hover {
-  background: #dddddd;
-}
-
-/* 등록 버튼 */
-.book-form button[type="submit"] {
-  background: #111111;
-  color: #ffffff;
-}
-
-.book-form button[type="submit"]:hover {
-  background: #444444;
+  text-align: left;
+  color: #222;
 }
 
 /* =========================
-   모바일
+   이미지 업로드
+========================= */
+
+.image-upload-section {
+  margin-top: 36px;
+  padding: 28px;
+  background: #fff;
+  border: 1px solid #ececec;
+  border-radius: 14px;
+}
+
+.image-drop-zone {
+  width: 100%;
+  min-height: 200px;
+  box-sizing: border-box;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: 2px dashed #d6d9df;
+  border-radius: 12px;
+  background: #fafbfc;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.image-drop-zone:hover {
+  border-color: #777;
+  background: #f4f5f7;
+}
+
+.image-drop-zone.dragging {
+  border-color: #333;
+  background: #f0f1f3;
+  transform: scale(1.005);
+}
+
+.upload-placeholder {
+  padding: 28px;
+  text-align: center;
+  color: #555;
+}
+
+.upload-placeholder p {
+  margin: 8px 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.upload-placeholder p:first-child {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+}
+
+.upload-placeholder small {
+  display: block;
+  margin-top: 14px;
+  font-size: 12px;
+  color: #999;
+}
+
+/* 업로드 미리보기 */
+.uploaded-preview {
+  padding: 20px;
+  text-align: center;
+}
+
+.uploaded-preview img {
+  display: block;
+  max-width: 180px;
+  max-height: 250px;
+  width: auto;
+  height: auto;
+  margin: 0 auto 12px;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.uploaded-preview p {
+  font-size: 13px;
+  color: #888;
+}
+
+/* =========================
+   AI 표지 생성
+========================= */
+
+.ai-cover {
+  margin-top: 24px;
+  padding: 28px;
+
+  border: 1px solid #ececec;
+  border-radius: 14px;
+  background: #fff;
+}
+
+/* AI 영역 내부 입력 간격 */
+.ai-cover > div {
+  margin-bottom: 14px;
+}
+
+.ai-cover select {
+  cursor: pointer;
+}
+
+/* =========================
+   버튼
+========================= */
+
+.book-form button {
+  padding: 13px 28px;
+  border: none;
+  border-radius: 9px;
+
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* 기본 버튼 */
+.book-form button {
+  background: #f0f1f3;
+  color: #333;
+}
+
+.book-form button:hover:not(:disabled) {
+  background: #e3e5e8;
+}
+
+/* AI 표지 생성 버튼 */
+.ai-cover button {
+  background: #222;
+  color: #fff;
+  min-width: 150px;
+}
+
+.ai-cover button:hover:not(:disabled) {
+  background: #444;
+}
+
+/* 비활성화 */
+.book-form button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 등록 / 취소 버튼 영역 */
+.book-form > div:last-child {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+/* 등록 버튼 */
+.book-form > div:last-child button:first-child {
+  background: #222;
+  color: #fff;
+  min-width: 120px;
+}
+
+.book-form > div:last-child button:first-child:hover {
+  background: #444;
+}
+
+/* 취소 버튼 */
+.book-form > div:last-child button:last-child {
+  background: #f1f2f4;
+  color: #444;
+  min-width: 120px;
+}
+
+/* =========================
+   이미지 후보
+========================= */
+
+.book-form img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.ai-cover img {
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease;
+}
+
+.ai-cover img:hover {
+  transform: translateY(-3px);
+}
+
+/* =========================
+   반응형
 ========================= */
 
 @media (max-width: 600px) {
   .book-form {
     margin: 20px auto;
-    padding: 16px;
+    padding: 20px 16px 40px;
   }
 
   .book-form h2 {
-    font-size: 24px;
+    font-size: 23px;
   }
 
-  .book-form form {
-    padding: 20px;
-    gap: 16px;
+  .book-form h3 {
+    font-size: 17px;
   }
 
-  .book-form img {
-    width: 140px;
-    height: 190px;
+  .image-upload-section,
+  .ai-cover {
+    padding: 20px 16px;
+  }
+
+  .image-drop-zone {
+    min-height: 170px;
+  }
+
+  .book-form > div:last-child {
+    justify-content: stretch;
+  }
+
+  .book-form > div:last-child button {
+    flex: 1;
+    min-width: 0;
   }
 }
 
-/* 이미지 업로드 영역 */
-.image-upload-section {
-    margin: 25px 0;
-    text-align: center;
-}
-
-.image-upload-section h3 {
-    margin-bottom: 15px;
-}
-
-/* 드래그 영역 */
-.image-drop-zone {
-    width: 100%;
-    min-height: 180px;
-    border: 2px dashed #ccc;
-    border-radius: 10px;
-    background-color: #fafafa;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    cursor: pointer;
-    transition: 0.2s;
-    box-sizing: border-box;
-}
-
-/* 마우스 올렸을 때 */
-.image-drop-zone:hover {
-    border-color: #777;
-    background-color: #f5f5f5;
-}
-
-/* 이미지 드래그 중 */
-.image-drop-zone.dragging {
-    border-color: #ff1fae;
-    background-color: #fff0f8;
-}
-
-/* 업로드 안내 */
-.upload-placeholder {
-    color: #666;
-    padding: 20px;
-}
-
-.upload-placeholder p {
-    margin: 8px 0;
-}
-
-.upload-placeholder small {
-    color: #999;
-}
-
-/* 이미지 미리보기 */
-.uploaded-preview {
-    padding: 15px;
-}
-
-.uploaded-preview img {
-    max-width: 180px;
-    max-height: 250px;
-    object-fit: contain;
-    border-radius: 6px;
-}
-
-.uploaded-preview p {
-    font-size: 13px;
-    color: #777;
-}
