@@ -16,7 +16,7 @@ function App() {
 
   const handleSearch = (keyword) => {
     setSearchKeyword(keyword.trim());
-    navigate('/');
+    navigate('/search');
   };
 
   return (
@@ -26,16 +26,27 @@ function App() {
       <Navigation />
 
       <Routes>
+  {/* 홈페이지 - 전체 도서 목록 */}
+  <Route
+    path="/"
+    element={<Home searchKeyword="" />}
+  />
 
-        <Route path="/" element={<Home searchKeyword={searchKeyword} />} />
+  {/* 검색 결과 페이지 */}
+  <Route
+    path="/search"
+    element={<Home searchKeyword={searchKeyword} />}
+  />
 
-        <Route path="/books/new" element={<BookForm />} />
+  {/* 도서 등록 */}
+  <Route path="/books/new" element={<BookForm />} />
 
-        <Route path="/books/:id" element={<BookContent />} />
+  {/* 도서 상세 */}
+  <Route path="/books/:id" element={<BookContent />} />
 
-        <Route path="/books/:id/edit" element={<BookEdit />} />
-
-      </Routes>
+  {/* 도서 수정 */}
+  <Route path="/books/:id/edit" element={<BookEdit />} />
+</Routes>
     </>
   );
 }
