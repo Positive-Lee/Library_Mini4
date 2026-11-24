@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-function BookItem({id, title, author, content, coverImageUrl, likes}) {
+function BookItem({id, title, author, content, coverImageUrl, recommend}) {
     return (
         <li className="book-card">
           <Link
