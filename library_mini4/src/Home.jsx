@@ -66,6 +66,22 @@ function Home({ searchKeyword }) {
 
                             <h3>{book.title}</h3>
                             <p>{book.author}</p>
+
+                            <div
+                                style={{
+                                    display: "flex",
+                                    gap: "12px",
+                                    fontSize: "12px",
+                                    color: "#666",
+                                    marginTop: "6px",
+                                }}
+                            >
+                                <span>👍 {book.recommend ?? 0}</span>
+                                <span>👎 {book.notRecommend ?? 0}</span>
+                            </div>
+
+
+                            
                         </div>
                     </Link>
                 ))}
