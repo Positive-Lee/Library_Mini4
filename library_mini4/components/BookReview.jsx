@@ -34,7 +34,7 @@ function BookReview({bookId}) {
                 bookId: String(bookId),
                 author: author.trim(),
                 content: content.trim(),
-                createdAt: new Date.toISOString()
+                createdAt: new Date().toISOString()
             });
 
             setReviews(prev => [newReview, ...prev]);
@@ -43,6 +43,7 @@ function BookReview({bookId}) {
             setContent("");
         } catch (error) {
             alert("리뷰 등록 실패");
+            console.log(error.message);
         }
     }
 
