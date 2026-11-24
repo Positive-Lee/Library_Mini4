@@ -11,6 +11,30 @@ const COVER_SIZES = [
     { value: "768x1152", label: "작게 (768x1152)" },
 ];
 
+// 입력칸별 글자 수 제한
+const LIMITS = {
+    title: { min: 1, max: 50 },
+    author: { min: 1, max: 20 },
+    content: { min: 5, max: 1000 },
+};
+
+// 입력값을 검사
+const validateBook = (title, author, content) => {
+    const errors = {};
+
+    if (!title.trim()) errors.title = "제목을 입력하세요.";
+    else if (title.trim().length > LIMITS.title.max) errors.title = `제목은 ${LIMITS.title.max}자 이하로 입력하세요.`;
+
+    if (!author.trim()) errors.author = "글쓴이를 입력하세요.";
+    else if (author.trim().length > LIMITS.author.max) errors.author = `글쓴이는 ${LIMITS.author.max}자 이하로 입력하세요.`;
+
+    if (!content.trim()) errors.content = "줄거리를 입력하세요.";
+    else if (content.trim().length < LIMITS.content.min) errors.content = `줄거리는 ${LIMITS.content.min}자 이상 입력하세요.`;
+    else if (content.trim().length > LIMITS.content.max) errors.content = `줄거리는 ${LIMITS.content.max}자 이하로 입력하세요.`;
+
+    return errors;
+};
+
 // OpenAI 이미지 생성 프롬프트
 const makePrompt = (title, author, content) =>
     `세로 2:3 비율의 책 표지 일러스트를 만들어 주세요.
@@ -77,6 +101,20 @@ function BookForm() {
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    // 입력칸별 에러 메시지 { title, author, content }
+    const [fieldErrors, setFieldErrors] = useState({});
+
+    // 입력칸 값을 바꾸면 그 칸의 에러 메시지만 지움 (객체 spread로 나머지는 유지)
+    const clearFieldError = (name) => {
+        setFieldErrors((prev) => ({ ...prev, [name]: "" }));
+    };
+
+    // 유효성 검사 실행 → 에러가 있으면 화면에 표시하고 false 반환
+    const checkValid = () => {
+        const errors = validateBook(title, author, content);
+        setFieldErrors(errors);
+        return Object.keys(errors).length === 0;
+    };
 
     const coverImageUrl =
     selectedIndex !== null
@@ -135,8 +173,8 @@ function BookForm() {
 
     // 표지 생성 버튼
     const handleGenerate = async () => {
-        if (!title.trim() || !content.trim()) {
-            setError("제목과 요약을 먼저 입력하세요.");
+        if (!checkValid()) {
+            setError("입력 내용을 먼저 확인하세요.");
             return;
         }
         if (!apiKey.trim()) {
@@ -173,7 +211,10 @@ function BookForm() {
     // 등록 버튼
     const handleClick = async () => {
 
-        if (!title.trim()) return;
+        if (!checkValid()) {
+            setError("입력 내용을 먼저 확인하세요.");
+            return;
+        }
 
         if (!coverImageUrl) {
             setError(candidates.length > 0 ? "표지 후보 중 하나를 선택하세요." : "표지를 먼저 생성하세요.");
@@ -181,9 +222,9 @@ function BookForm() {
         }
 
         const newBook = {
-            title,
-            author,
-            content,
+            title: title.trim(),
+            author: author.trim(),
+            content: content.trim(),
             coverImageUrl,
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString(),
@@ -209,26 +250,36 @@ function BookForm() {
     return (
         <section className="book-form" style={{ textAlign: "center" }}>
 
+            {/* maxLength : 최대 글자 수 이상은 입력 자체가 안 됨 / 아래에 글자 수와 에러 메시지 표시 */}
             <div>
                 <input
                     value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    onChange={(e) => { setTitle(e.target.value); clearFieldError("title"); }}
+                    maxLength={LIMITS.title.max}
                     placeholder="제목을 입력하세요" />
+                <small> {title.length}/{LIMITS.title.max}</small>
+                {fieldErrors.title && <p style={{ color: "red" }}>{fieldErrors.title}</p>}
             </div>
 
             <div>
                 <input
                     value={author}
-                    onChange={(e) => setAuthor(e.target.value)}
+                    onChange={(e) => { setAuthor(e.target.value); clearFieldError("author"); }}
+                    maxLength={LIMITS.author.max}
                     placeholder="글쓴이" />
+                <small> {author.length}/{LIMITS.author.max}</small>
+                {fieldErrors.author && <p style={{ color: "red" }}>{fieldErrors.author}</p>}
             </div>
 
             <div>
                 <textarea
                     value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                    placeholder="요약 (도서 내용)"
+                    onChange={(e) => { setContent(e.target.value); clearFieldError("content"); }}
+                    maxLength={LIMITS.content.max}
+                    placeholder={`요약 (도서 내용, ${LIMITS.content.min}자 이상)`}
                     rows={6} />
+                <small> {content.length}/{LIMITS.content.max}</small>
+                {fieldErrors.content && <p style={{ color: "red" }}>{fieldErrors.content}</p>}
             </div>
 
 
