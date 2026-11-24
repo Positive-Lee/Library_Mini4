@@ -39,6 +39,40 @@ function BookEdit() {
         setBook((prev) => ({...prev, [name]: value}));
     }
 
+    //이미지 파일  업로드
+    function handleImage(file) {
+        if (!file) return;
+
+        if (!file.type.startsWith("image/")) {
+            alert("이미지 파일만 업로드할 수 있습니다.");
+            return;
+        }
+
+        const reader = new FileReader();
+        
+        reader.onload = () => {
+            setBook(prev => ({...prev, coverImageUrl: reader.result}));
+        };
+        
+        reader.readAsDataURL(file);
+    }
+
+    // 드래그
+    function handleDragOver(e) {
+        e.preventDefault();
+    }
+
+    // 드롭
+    function handleDrop(e) {
+        e.preventDefault();
+        handleImage(e.dataTransfer.files[0]);
+    }
+
+    // 파일 선택
+    function handleFileChange(e) {
+        handleImage(e.target.files[0]);
+    }
+
     // 수정 완료
     async function handleSubmit(e) {
         e.preventDefault();
@@ -91,18 +125,32 @@ function BookEdit() {
                 rows={6}/>
 
                 <div className="cover-preview">
-                    {book.coverImageUrl && (
-                        <img 
-                        src={book.coverImageUrl}
-                        alt="책 표지 미리보기"
-                        className=""/>
-                    )}
+                    <label
+                    className='drop-zone'
+                    onDragOver={handleDragOver}
+                    onDrop={handleDrop}>
+                        {book.coverImageUrl ? (
+                            <img 
+                            src={book.coverImageUrl}
+                            alt="미리보기"/>
+                        ) : (
+                            <p>이미지를 드래그하거나 클릭하세요.</p>
+                        )}
 
-                    <input
-                    name="coverImageUrl"
-                    value={book.coverImageUrl ?? ""}
-                    onChange={handleChange}
-                    placeholder="표지 이미지"/>
+                        <input 
+                        type='file'
+                        accept='image/*'
+                        onChange={handleFileChange}
+                        hidden/>
+                        </label>
+
+                        <input 
+                        name='coverImageUrl'
+                        value={book.coverImageUrl?.startsWith("data:") 
+                        ? "" 
+                        : book.coverImageUrl ?? ""}
+                        onChange={handleChange}
+                        placeholder='이미지 URL을 입력하세요'/>
                 </div>
                 <button type="submit">수정 완료</button>
                 <button type="button" onClick={() => navigate(`/books/${id}`)}>취소</button>
