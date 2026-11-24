@@ -1,5 +1,5 @@
 import './BookForm.css';
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createBook } from "../components/books";
 
@@ -66,10 +66,69 @@ function BookForm() {
     const [candidates, setCandidates] = useState([]);
     const [selectedIndex, setSelectedIndex] = useState(null);
 
+    // 직접 업로드한 이미지
+    const [uploadedImage, setUploadedImage] = useState("");
+    const [isDragging, setIsDragging] = useState(false);
+    const fileInputRef = useRef(null);
+
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
-    const coverImageUrl = selectedIndex !== null ? candidates[selectedIndex] : "";
+    const coverImageUrl =
+    selectedIndex !== null
+        ? candidates[selectedIndex]
+        : uploadedImage;
+
+    // 이미지 파일 처리
+    const handleImageFile = (file) => {
+        if (!file) return;
+
+        // 이미지 파일인지 확인
+        if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+            setError("JPG, PNG, WEBP 이미지만 업로드할 수 있습니다.");
+            return;
+        }
+
+        // 파일 크기 제한 (5MB)
+        if (file.size > 5 * 1024 * 1024) {
+            setError("이미지 크기는 5MB 이하여야 합니다.");
+            return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = () => {
+            setUploadedImage(reader.result);
+
+            // AI 표지 선택 해제
+            setSelectedIndex(null);
+            setError("");
+        };
+
+        reader.onerror = () => {
+            setError("이미지를 읽는 중 오류가 발생했습니다.");
+        };
+
+        reader.readAsDataURL(file);
+    };
+
+    // 드래그 앤 드롭
+    const handleDrop = (e) => {
+        e.preventDefault();
+        setIsDragging(false);
+
+        const file = e.dataTransfer.files[0];
+        handleImageFile(file);
+    };
+
+    // 파일 선택
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        handleImageFile(file);
+
+        e.target.value = "";
+    };
+
 
     const handleGenerate = async () => {
         if (!title.trim() || !content.trim()) {
@@ -101,9 +160,10 @@ function BookForm() {
     };
 
     const handleSelect = (i) => {
-        setSelectedIndex(i);
-        setError("");
-    };
+    setSelectedIndex(i);
+    setUploadedImage("");
+    setError("");
+};
 
     const handleClick = async () => {
 
@@ -164,6 +224,48 @@ function BookForm() {
                     placeholder="요약 (도서 내용)"
                     rows={6} />
             </div>
+
+
+            {/* 직접 이미지 업로드 */}
+            <div className="image-upload-section">
+                <h3>표지 이미지 업로드</h3>
+
+                <div
+                    className={`image-drop-zone ${isDragging ? "dragging" : ""}`}
+                    onDragOver={(e) => {
+                        e.preventDefault();
+                        setIsDragging(true);
+                    }}
+                    onDragLeave={(e) => {
+                        e.preventDefault();
+                        setIsDragging(false);
+                    }}
+                    onDrop={handleDrop}
+                    onClick={() => fileInputRef.current?.click()}
+                >
+                    <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/jpeg,image/png,image/webp"
+                        onChange={handleFileChange}
+                        style={{ display: "none" }}
+                    />
+
+                    {uploadedImage ? (
+                        <div className="uploaded-preview">
+                            <img src={uploadedImage} alt="업로드한 표지" />
+                            <p>이미지를 변경하려면 클릭하세요.</p>
+                        </div>
+                    ) : (
+                        <div className="upload-placeholder">
+                            <p>📁 이미지를 여기에 드래그하세요.</p>
+                            <p>또는 클릭해서 파일을 선택하세요.</p>
+                            <small>JPG, PNG, WEBP / 최대 5MB</small>
+                        </div>
+                    )}
+                </div>
+            </div>
+
 
             <div className="ai-cover">
                 <h3>AI 표지 생성</h3>
