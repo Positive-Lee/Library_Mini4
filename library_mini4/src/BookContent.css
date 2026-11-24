@@ -306,3 +306,101 @@
     width: 100%;
   }
 }
+
+
+/* =========================
+   등록된 리뷰 목록 디자인
+========================= */
+
+/* 리뷰 영역의 기본 글꼴 */
+.book-detail > :last-child {
+  font-family: inherit;
+  color: #222222;
+}
+
+/* 리뷰 목록: ul 구조인 경우 */
+.book-detail > :last-child ul {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* 리뷰 카드: li 구조인 경우 */
+.book-detail > :last-child li {
+  padding: 22px 24px;
+  background: #ffffff;
+  border: 1px solid #e7e9ed;
+  border-radius: 12px;
+
+  list-style: none;
+  transition: all 0.2s ease;
+}
+
+/* 리뷰 카드: div 구조인 경우 */
+.book-detail > :last-child .review-item,
+.book-detail > :last-child .review-card {
+  padding: 22px 24px;
+  margin-bottom: 14px;
+
+  background: #ffffff;
+  border: 1px solid #e7e9ed;
+  border-radius: 12px;
+
+  transition: all 0.2s ease;
+}
+
+/* 마우스 올렸을 때 */
+.book-detail > :last-child li:hover,
+.book-detail > :last-child .review-item:hover,
+.book-detail > :last-child .review-card:hover {
+  border-color: #cfd3da;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.04);
+}
+
+/* 리뷰 작성자 */
+.book-detail > :last-child li strong,
+.book-detail > :last-child .review-item strong,
+.book-detail > :last-child .review-card strong {
+  font-size: 15px;
+  font-weight: 700;
+  color: #222222;
+}
+
+/* 리뷰 작성자와 날짜 사이 간격 */
+.book-detail > :last-child li strong,
+.book-detail > :last-child .review-item strong,
+.book-detail > :last-child .review-card strong {
+  margin-right: 12px;
+}
+
+/* 리뷰 날짜 */
+.book-detail > :last-child li time,
+.book-detail > :last-child .review-date {
+  color: #999999;
+  font-size: 12px;
+}
+
+/* 리뷰 내용 */
+.book-detail > :last-child li p,
+.book-detail > :last-child .review-item p,
+.book-detail > :last-child .review-card p {
+  margin: 12px 0 0;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #444444;
+  overflow-wrap: anywhere;
+}
+
+/* 모바일 */
+@media (max-width: 600px) {
+  .book-detail > :last-child li,
+  .book-detail > :last-child .review-item,
+  .book-detail > :last-child .review-card {
+    padding: 18px 16px;
+  }
+}
+
