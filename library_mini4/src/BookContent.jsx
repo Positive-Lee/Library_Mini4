@@ -2,6 +2,7 @@ import './BookContent.css';
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getBook, deleteBook } from "../components/books";
+import BookReview from '../components/BookReview';
 
 
 function BookContent() {
@@ -107,6 +108,7 @@ function BookContent() {
           <button onClick={() => navigate(`/books/${id}/edit`)}>수정</button>
           <button onClick={handleDelete}>삭제</button>
         </div>
+        <BookReview bookId={id} />
       </div>
         </section>
     );
