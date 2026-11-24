@@ -5,7 +5,9 @@ import { getBooks, searchBooks } from "../components/books";
 
 function Home({ searchKeyword }) {
   const [books, setBooks] = useState([]);
+  const [sortBy, setSortBy] = useState("latest");
 
+  // 도서 데이터 불러오기
   useEffect(() => {
     let cancelled = false;
 
@@ -31,7 +33,10 @@ function Home({ searchKeyword }) {
     };
   }, [searchKeyword]);
 
-  // 추천 수가 높은 베스트 도서 TOP 3
+  // =========================
+  // 베스트 도서 TOP 3
+  // =========================
+
   const bestBooks = [...books]
     .sort(
       (a, b) =>
@@ -40,7 +45,10 @@ function Home({ searchKeyword }) {
     )
     .slice(0, 3);
 
-  // 최근 등록된 신간 도서 TOP 3
+  // =========================
+  // 신간 도서 TOP 3
+  // =========================
+
   const newBooks = [...books]
     .sort(
       (a, b) =>
@@ -49,7 +57,49 @@ function Home({ searchKeyword }) {
     )
     .slice(0, 3);
 
+  // =========================
+  // 전체 도서 목록 정렬
+  // =========================
+
+  const sortedBooks = [...books].sort((a, b) => {
+    switch (sortBy) {
+      // 추천순
+      case "popular":
+        return (
+          (Number(b.recommend) || 0) -
+          (Number(a.recommend) || 0)
+        );
+
+      // 최신순
+      case "latest":
+        return (
+          new Date(b.createdAt || 0) -
+          new Date(a.createdAt || 0)
+        );
+
+      // 오래된순
+      case "oldest":
+        return (
+          new Date(a.createdAt || 0) -
+          new Date(b.createdAt || 0)
+        );
+
+      // 가나다순
+      case "title":
+        return (a.title || "").localeCompare(
+          b.title || "",
+          "ko"
+        );
+
+      default:
+        return 0;
+    }
+  });
+
+  // =========================
   // 공통 도서 카드
+  // =========================
+
   const renderBookCard = (book, index, type = "normal") => (
     <Link
       key={book.id}
@@ -57,18 +107,22 @@ function Home({ searchKeyword }) {
       className="book-card-link"
     >
       <article className="book-card">
+
+        {/* 베스트 도서 순위 */}
         {type === "best" && (
           <span className="book-rank">
             TOP {index + 1}
           </span>
         )}
 
+        {/* 신간 도서 표시 */}
         {type === "new" && (
           <span className="book-rank new-badge">
             NEW
           </span>
         )}
 
+        {/* 도서 표지 */}
         <div className="book-image">
           {book.coverImageUrl ? (
             <img
@@ -80,13 +134,20 @@ function Home({ searchKeyword }) {
           )}
         </div>
 
+        {/* 도서 제목 */}
         <h3>{book.title}</h3>
-        <p className="book-author">{book.author}</p>
 
+        {/* 저자 */}
+        <p className="book-author">
+          {book.author}
+        </p>
+
+        {/* 추천 / 비추천 */}
         <div className="book-reactions">
           <span>👍 {book.recommend ?? 0}</span>
           <span>👎 {book.notRecommend ?? 0}</span>
         </div>
+
       </article>
     </Link>
   );
@@ -94,15 +155,21 @@ function Home({ searchKeyword }) {
   return (
     <main className="home-page">
 
-      {/* 베스트 도서 + 신간 도서 */}
+      {/* =========================
+          베스트 도서 + 신간 도서
+      ========================= */}
+
       {!searchKeyword && books.length > 0 && (
         <div className="featured-sections">
 
+          {/* 베스트 도서 */}
           <section className="featured-section">
             <div className="section-heading">
               <div>
                 <h2>🏆 베스트 도서</h2>
-                <p>추천 수가 가장 높은 인기 도서 TOP 3</p>
+                <p>
+                  추천 수가 가장 높은 인기 도서 TOP 3
+                </p>
               </div>
             </div>
 
@@ -113,11 +180,14 @@ function Home({ searchKeyword }) {
             </div>
           </section>
 
+          {/* 신간 도서 */}
           <section className="featured-section">
             <div className="section-heading">
               <div>
                 <h2>✨ 신간 도서</h2>
-                <p>최근 등록된 새로운 도서 TOP 3</p>
+                <p>
+                  최근 등록된 새로운 도서 TOP 3
+                </p>
               </div>
             </div>
 
@@ -131,24 +201,63 @@ function Home({ searchKeyword }) {
         </div>
       )}
 
-      {/* 전체 도서 목록 */}
+      {/* =========================
+          전체 도서 목록
+      ========================= */}
+
       <section className="book-list-section">
+
+        {/* 도서 목록 제목 + 정렬 필터 */}
         <div className="home-top">
+
           <div>
             <h2>
-              {searchKeyword ? "검색 결과" : "도서 목록"}
+              {searchKeyword
+                ? "검색 결과"
+                : "도서 목록"}
             </h2>
+
             <p>
               {searchKeyword
                 ? `"${searchKeyword}" 검색 결과 ${books.length}권`
                 : "등록된 도서를 확인하고 상세 정보를 조회할 수 있습니다."}
             </p>
           </div>
+
+          {/* 정렬 필터 */}
+          <div className="sort-container">
+            <select
+              className="sort-select"
+              value={sortBy}
+              onChange={(e) =>
+                setSortBy(e.target.value)
+              }
+              aria-label="도서 정렬 기준"
+            >
+              <option value="latest">
+                최신순
+              </option>
+
+              <option value="oldest">
+                오래된순
+              </option>
+
+              <option value="popular">
+                추천순
+              </option>
+
+              <option value="title">
+                가나다순
+              </option>
+            </select>
+          </div>
+
         </div>
 
-        {books.length > 0 ? (
+        {/* 정렬된 도서 목록 */}
+        {sortedBooks.length > 0 ? (
           <div className="book-grid">
-            {books.map((book, index) =>
+            {sortedBooks.map((book, index) =>
               renderBookCard(book, index)
             )}
           </div>
@@ -159,6 +268,7 @@ function Home({ searchKeyword }) {
               : "등록된 도서가 없습니다."}
           </p>
         )}
+
       </section>
 
     </main>
@@ -166,4 +276,3 @@ function Home({ searchKeyword }) {
 }
 
 export default Home;
-

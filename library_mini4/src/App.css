@@ -554,3 +554,53 @@ nav a[aria-current="page"] {
   }
 }
 
+
+/* =========================
+   도서 목록 정렬 필터
+========================= */
+
+.sort-container {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.sort-select {
+  min-width: 145px;
+  height: 42px;
+  padding: 0 14px;
+
+  border: 1px solid #e2e4e8;
+  border-radius: 9px;
+
+  background: #ffffff;
+  color: #333333;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+
+  cursor: pointer;
+  outline: none;
+
+  transition: all 0.2s ease;
+}
+
+.sort-select:hover {
+  border-color: #999999;
+}
+
+.sort-select:focus {
+  border-color: #555555;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.04);
+}
+
+/* 모바일 */
+@media (max-width: 600px) {
+  .sort-select {
+    min-width: 110px;
+    height: 38px;
+    font-size: 12px;
+  }
+}
+
