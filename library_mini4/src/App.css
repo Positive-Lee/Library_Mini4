@@ -47,6 +47,15 @@ body {
   color: #111111;
   white-space: nowrap;
 }
+/*  로고  */
+.Genie_Library_Logo {
+  width: 280px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+
 
 /* =========================
    3. 검색창 + 검색 버튼
