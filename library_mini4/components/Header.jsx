@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import logo from "./Genie_Library_Logo.png";
 
 
@@ -27,8 +27,14 @@ function Header({ onSearch }) {
 
   return (
     <header className="library-header">
-      {/* 서비스 제목 로고  */}
-      <img src={logo} alt="Genie Library" className="Genie_Library_Logo" /> 
+      {/* 서비스 제목 로고 , 클릭 링크 */}
+      <NavLink to="/">
+        <img
+          src={logo}
+          alt="Genie Library 홈으로 이동"
+          className="Genie_Library_Logo"
+        />
+      </NavLink> 
 
       {/* 검색창과 검색 버튼 */}
       <form className="search-form" onSubmit={handleSearch}>
