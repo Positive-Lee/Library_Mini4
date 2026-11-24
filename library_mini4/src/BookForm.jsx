@@ -6,6 +6,11 @@ import { createBook } from "../components/books";
 const IMAGE_API_URL = "https://api.openai.com/v1/images/generations";
 
 const COVER_COUNT = 3;
+const COVER_SIZES = [
+    { value: "1024x1536", label: "기본 (1024x1536)" },
+    { value: "768x1152", label: "작게 (768x1152)" },
+];
+
 
 const makePrompt = (title, author, content) =>
     `세로 2:3 비율의 책 표지 일러스트를 만들어 주세요.
@@ -17,7 +22,7 @@ const makePrompt = (title, author, content) =>
 한 장의 이미지에는 표지 하나만 그려 주세요.
 이미지 안에 글자, 문자, 워터마크는 넣지 마세요.`;
 
-async function requestCovers(apiKey, prompt, quality) {
+async function requestCovers(apiKey, prompt, quality, size) {
     const res = await fetch(IMAGE_API_URL, {
         method: "POST",
         headers: {
@@ -28,7 +33,7 @@ async function requestCovers(apiKey, prompt, quality) {
             model: "gpt-image-2",
             prompt,
             n: COVER_COUNT,
-            size: "1024x1536",
+            size,
             quality,
             output_format: "webp",
             output_compression:70,
@@ -56,6 +61,7 @@ function BookForm() {
 
     const [apiKey, setApiKey] = useState("");
     const [quality, setQuality] = useState("low");
+    const [size, setSize] = useState("1024x1536");
 
     const [candidates, setCandidates] = useState([]);
     const [selectedIndex, setSelectedIndex] = useState(null);
@@ -74,14 +80,17 @@ function BookForm() {
             setError("OpenAI API Key를 입력하세요.");
             return;
         }
-
+        if (!window.confirm(`표지 생성시에 OpenAI 사용 요금이 발생합니다.`)) {
+            return;
+        }
+   
         setLoading(true);
         setError("");
         setCandidates([]);
         setSelectedIndex(null);
 
         try {
-            const urls = await requestCovers(apiKey.trim(), makePrompt(title, author, content), quality);
+            const urls = await requestCovers(apiKey.trim(), makePrompt(title, author, content), quality, size);
             setCandidates(urls);
         } catch (err) {
             setError(err.message);
@@ -174,7 +183,13 @@ function BookForm() {
                         <option value="high">High</option>
                     </select>
                 </div>
-
+                <div>
+                    <select value={size} onChange={(e) => setSize(e.target.value)}>
+                        {COVER_SIZES.map((s) => (
+                            <option key={s.value} value={s.value}>{s.label}</option>
+                        ))}
+                    </select>
+                </div>
                 <div>
                     <button onClick={() => handleGenerate()} disabled={loading}>
                         {loading ? "생성 중..." : candidates.length > 0 ? "다시 생성" : "표지생성"}</button>
