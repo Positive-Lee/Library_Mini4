@@ -1,5 +1,5 @@
 import {useState, useEffect} from "react";
-import { getReviews, createReview, deleteReview } from "./review";
+import { getReviews, createReview } from "./review";
 
 function BookReview({bookId}) {
     const [reviews, setReviews] = useState([]);
@@ -46,21 +46,6 @@ function BookReview({bookId}) {
         }
     }
 
-    // 리뷰 삭제
-    async function handleDelete(id) {
-        if (!window.confirm("리뷰를 삭제하시겠습니까?")) {
-            return;
-        }
-
-        try {
-            await deleteReview(id);
-
-            setReviews(prev => prev.filter(review => review.id !== id));
-        } catch (error) {
-            alert("리뷰 삭제 실패");
-        }
-    }
-
     return (
         <section className="book-review">
             <h2>리뷰 ({reviews.length})</h2>
@@ -100,14 +85,6 @@ function BookReview({bookId}) {
                                     review.createdAt
                                 ).toLocaleDateString("ko-KR")}
                             </span>
-
-                            <button
-                                type="button"
-                                className="review-delete"
-                                onClick={() =>
-                                    handleDelete(review.id)
-                                }
-                            >삭제</button>
                             </div>
 
                             <p>{review.content}</p>

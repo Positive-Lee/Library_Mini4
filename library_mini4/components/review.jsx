@@ -25,12 +25,3 @@ export async function createReview(review) {
 
     return await response.json();
 }
-
-// 리뷰 삭제
-export async function deleteReview(id) {
-    const response = await fetch(`${API_URL}/${id}`, {
-        method: "DELETE"
-    });
-
-    if (!response.ok) throw new Error("리뷰 삭제 실패");
-}
